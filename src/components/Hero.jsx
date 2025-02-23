@@ -1,88 +1,144 @@
-import React, { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import CtaButton from "./CtaButton";
-import VideoBtn from "./VideoBtn";
-import img from "../img/hero-img.svg";
-
-// aos
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-// import video
-import video from "../img/video/funny.mp4";
+import Particles from "react-tsparticles"; // Particles for molecular-style motion
+import { useSpring, animated } from "react-spring"; // Import react-spring for typing effect
 
 const Hero = () => {
-  const myElement = useRef(null);
+  const [showPopup, setShowPopup] = useState(false);
 
-  useEffect(() => {
-    gsap.to(myElement.current, {
-      duration: 2,
-      y: -100,
-      yoyo: true,
-      repeat: -1,
-      ease: "power1.inOut",
-    });
-  }, []);
+  const letterVariants = {
+    hover: {
+      y: -10,
+      transition: {
+        y: { yoyo: 3, duration: 0.4 },
+      },
+    },
+  };
 
-  useEffect(() => {
-    AOS.init();
+  // Typing effect animation for the description text
+  const typingEffect = useSpring({
+    opacity: 1,
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 4000 },
   });
 
-  // const [show, setShow] = useState(false);
-
-  // const videoStartHandler = () => {
-  //   const video = document.querySelector("#video");
-  //   video.currentTime = 0;
-  //   video.load();
-  //   setShow(true);
-  // };
-
-  // const clickHandler = () => {
-  //   const video = document.querySelector("#video");
-  //   video.pause();
-  //   setShow(false);
-  // };
-
   return (
-    <div className="flex flex-col-reverse lg:flex-row items-center lg:gap-10 secondary-font relative">
-      <div
-        data-aos="fade-right"
-        data-aos-duration="1200"
-        className="lg:w-1/2 w-full md:w-3/4 px-10 md:p-0"
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-white text-black overflow-hidden px-6 lg:px-20">
+
+      {/* Molecular Motion Graphics / Blockchain Particles */}
+      <Particles
+        className="absolute inset-0 z-0"
+        options={{
+          particles: {
+            number: { value: 60 },
+            size: { value: 3 },
+            move: {
+              enable: true,
+              speed: 3,
+              direction: "none",
+              random: true,
+              straight: false,
+              outMode: "out",
+            },
+            links: {
+              enable: true,
+              distance: 150,
+              opacity: 0.3,
+              width: 1,
+            },
+            opacity: {
+              value: 0.4,
+              animation: {
+                enable: true,
+                speed: 1,
+                minimumValue: 0.1,
+              },
+            },
+            shape: {
+              type: "circle",  // You can also try "polygon", "edge", etc. for a more complex look
+            },
+          },
+        }}
+      />
+
+      {/* Left Content */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="text-center z-10"
       >
-        <h1 className="text-[#7A6960] md:text-5xl text-3xl font-semibold">
-          Fueling Skills, Igniting Careers
+        {/* Trustify Title with Hover Effects */}
+        <h1 className="text-9xl font-extrabold tracking-wide cursor-pointer relative z-10">
+          {['T', 'R', 'U', 'S', 'T', 'I', 'F', 'Y'].map((letter, index) => (
+            <motion.span
+              key={index}
+              variants={letterVariants}
+              whileHover="hover"
+              className="inline-block"
+            >
+              {letter}
+            </motion.span>
+          ))}
         </h1>
-        <p className="text-xl mt-5 text-gray-600 primary-font">
-          Master industry-relevant skills with our vernacular online courses.
-          Choose your program, get certified, & open doors to lucrative career
-          opportunities.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center mb-12 lg:mb-0 lg:flex-row gap-10 mt-10">
-          <a href="#contact" className="">
+
+        {/* Typing Effect on Description */}
+        <animated.p
+          style={typingEffect}
+          className="text-2xl mt-5 text-gray-800 leading-relaxed font-light text-center mx-auto max-w-3xl relative z-10"
+        >
+          Trustify uses <span className="font-semibold text-[#EE7540]">blockchain technology</span> to provide{" "}
+          <span className="font-semibold text-[#EE7540]">tamper-proof identity verification</span>, ensuring your
+          digital identity is safe from fraud.
+          <span className="blinking-cursor">|</span>
+        </animated.p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-10 relative z-10">
+          <a href="#contact">
             <CtaButton name={"Get Started"} />
           </a>
-          {/* <div
-            onClick={() => videoStartHandler()}
-            className="shadow shadow-zinc-300 hover:shadow-orange-600 hover:shadow px-4 py-2 rounded-3xl"
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-cyan-400 text-white rounded-lg shadow-lg transition-all ease-in-out"
+            onClick={() => setShowPopup(true)}
           >
-            <VideoBtn name={"Watch Video"} />
-          </div> */}
+            Learn More
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="lg:w-1/2 w-full md:w-3/4 py-16 px-10 md:px-0">
-        <img ref={myElement} className="w-full animate" src={img} alt="img" />
-      </div>
-
-      {/* Adding video */}
-      {/* 
-      <div className={`${show ? "block" : "hidden"} absolute lg:w-full lg:m-5 lg:h-full bg-zinc-500 bg-opacity-50 rounded overflow-hidden flex justify-center items-center shadow-2xl lg:mb-20 transition-all duration-300`}>
-        <div onClick={()=> clickHandler()} className="absolute lg:right-10 right-2 lg:top-6 top-2 lg:px-3 px-[0.6rem] rounded-s-full lg:text-3xl text-xl font-light bg-zinc-700 rounded-full text-white cursor-pointer">
-          x
-        </div>
-        <video id="video" muted controls autoPlay className="w-[800px] rounded" src={video}></video>
-      </div> */}
+      {/* Pop-up Modal */}
+      {showPopup && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-md z-50"
+        >
+          <motion.div
+            className="bg-[#1A1A1A] p-8 rounded-lg max-w-lg text-center"
+            initial={{ y: -50 }}
+            animate={{ y: 0 }}
+            exit={{ y: -50 }}
+          >
+            <h2 className="text-2xl font-bold text-white">What is Trustify?</h2>
+            <p className="text-gray-400 mt-4">
+              Trustify uses <span className="font-semibold text-[#EE7540]">blockchain technology</span> for{" "}
+              <span className="font-semibold text-[#EE7540]">secure, decentralized identity verification</span>, ensuring{" "}
+              <span className="font-semibold text-[#EE7540]">privacy</span> and <span className="font-semibold text-[#EE7540]">data integrity</span>.
+            </p>
+            <button
+              className="mt-6 px-6 py-3 bg-red-600 hover:bg-red-500 text-white rounded-lg"
+              onClick={() => setShowPopup(false)}
+            >
+              Close
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 };

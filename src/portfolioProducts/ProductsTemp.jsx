@@ -1,79 +1,120 @@
-import React from "react";
-// import app3 from "../img/portfolio/app-2.jpg";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import CtaButton from "../components/CtaButton";
-import { Link, useNavigate } from "react-router-dom";
 
-const Appproducts = ({ img }) => {
-  const navigate = useNavigate();
+const techStack = [
+  { name: "React.js", icon: "⚛️" },
+  { name: "Node.js", icon: "🟩" },
+  { name: "MongoDB", icon: "🍃" },
+  { name: "Blockchain", icon: "🔗" },
+];
 
-  let date = new Date();
-  date =
-    date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+const Appproducts = ({ img, title, description, tech }) => {
+  let date = new Date().toLocaleDateString();
 
   return (
-    <div>
+    <div className="bg-white text-gray-800 transition-all duration-300">
       <NavBar />
-      <section
-        id="about"
-        className="w-full max-h-fit py-16 lg:px-32 overflow-hidden border-b border-orange-100"
-      >
-        <div className="flex md:flex-row flex-col items-start justify-center gap-10">
-          <div className="md:w-2/3 p-5 md:p-0">
-            <img className="" src={img} alt="" />
-          </div>
-          <div className="md:w-1/3 flex flex-col gap-10 p-5 md:p-0">
-            <div className="shadow-xl border-2 p-8">
-              <h1 className="text-3xl font-semibold text-[#7A6960]">
-                Project Information
+
+      {/* Product Section */}
+      <section className="w-full py-16 px-6 lg:px-32">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="flex flex-col md:flex-row items-center gap-12"
+        >
+          {/* Image Box with Hover Effect */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="md:w-2/3 rounded-xl overflow-hidden shadow-lg"
+          >
+            <img
+              className="w-full h-auto object-cover rounded-xl transition-transform duration-300 hover:scale-105"
+              src={img}
+              alt="App Screenshot"
+            />
+          </motion.div>
+
+          {/* Description & Details */}
+          <div className="md:w-1/3 flex flex-col gap-6">
+            <div className="p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-300">
+              <h1 className="text-3xl font-bold text-[#7A6960]">
+                {title || "Project Information"}
               </h1>
-              <div className="h-[1px] mt-3 bg-slate-200"></div>
-              <ul className="mt-3">
+              <div className="h-[2px] mt-3 bg-gray-300"></div>
+              <ul className="mt-3 space-y-2 text-lg">
                 <li>
-                  <span className="font-semibold ">Category:</span> Software
+                  <span className="font-semibold">Category:</span> Software
                 </li>
                 <li>
-                  <span className="font-semibold ">Client:</span> USA
+                  <span className="font-semibold">Client:</span> Global
                 </li>
                 <li>
-                  <span className="font-semibold ">Project Date:</span> {date}
+                  <span className="font-semibold">Project Date:</span> {date}
                 </li>
                 <li>
-                  <span className="font-semibold ">Project Url:</span>{" "}
-                  <span className="text-orange-600">www.example.com</span>
+                  <span className="font-semibold">Project URL:</span>{" "}
+                  <a
+                    href="https://www.example.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    www.example.com
+                  </a>
                 </li>
               </ul>
             </div>
+
+            {/* Project Description */}
             <div>
-              <h1 className="text-3xl font-semibold text-[#7A6960]">
-                Lorem ipsum dolor sit amet.
+              <h1 className="text-2xl font-bold text-[#7A6960]">
+                About This Project
               </h1>
-              <p className="mt-5">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                dicta mollitia, labore deserunt repellat temporibus animi
-                pariatur accusamus enim unde rerum id qui beatae neque,
-                perferendis maxime facilis nulla quos saepe iste non optio quam
-                in! Dolorem hic nulla porro?
+              <p className="mt-4 text-lg text-gray-700">
+                {description ||
+                  "This project is an innovative application built using cutting-edge technologies to provide seamless user experience and efficiency."}
               </p>
             </div>
-            <div className="flex items-center justify-center mt-3">
-              <Link to="/hireus" className="">
+
+            {/* Tech Stack */}
+            <div>
+              <h1 className="text-2xl font-bold text-[#7A6960]">
+                Tech Stack
+              </h1>
+              <div className="mt-3 flex gap-4 flex-wrap">
+                {(tech || techStack).map((tech, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.1 }}
+                    className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow-md"
+                  >
+                    {tech.icon} {tech.name}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="flex items-center justify-center mt-4">
+              <Link to="/hireus">
                 <CtaButton name={"Hire Us"} />
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Newletter & Footer */}
-      <section className="w-full max-h-fit py-16 lg:px-32 overflow-hidden bg-[#FEFAF8] border-b border-orange-100">
+      {/* Newsletter & Footer */}
+      <section className="w-full py-16 px-6 lg:px-32 bg-gray-50">
         <Newsletter />
       </section>
-      <section className="w-full max-h-fit py-16 lg:px-32 overflow-hidden border-b border-orange-100">
-        <Footer />
-      </section>
+      <Footer />
     </div>
   );
 };

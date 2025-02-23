@@ -1,164 +1,167 @@
 import React, { useEffect } from "react";
-import { IoLocationOutline } from "react-icons/io5";
-import { IoCallOutline } from "react-icons/io5";
+import { IoLocationOutline, IoCallOutline } from "react-icons/io5";
 import { TfiEmail } from "react-icons/tfi";
 import CtaButton from "./CtaButton";
-// aos
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-// React Form
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data, e) => {
-    console.log(data);
-    toast.success("Message sent Successfully");
-    e.target.reset();
+    const serviceID = "service_6zg9emj"; // Replace with your EmailJS Service ID
+    const templateID = "template_kygg2lr"; // Replace with your EmailJS Template ID
+    const publicKey = "4dkjh2DZBDn6F_yFB"; // Replace with your EmailJS Public Key
+
+    const templateParams = {
+      name: data.name,
+      email: data.email,
+      subject: data.subject,
+      message: data.message,
+    };
+
+    emailjs
+      .send(serviceID, templateID, templateParams, publicKey)
+      .then((response) => {
+        console.log("Message sent successfully:", response);
+        toast.success("Message sent successfully!");
+        e.target.reset();
+      })
+      .catch((error) => {
+        console.error("Failed to send message:", error);
+        toast.error("Message failed to send. Try again.");
+      });
   };
 
   useEffect(() => {
-    AOS.init({
-      duration: 1200,
-    });
+    AOS.init({ duration: 1200 });
   }, []);
 
   return (
-    <div className="text-[#7A6960]">
+    <div className="text-[#1E1E1E]">
+      <ToastContainer />
+      
+      {/* Section Title */}
       <h1 data-aos="fade-right" className="text-3xl font-semibold text-center">
-        Contact
+        Get in Touch with Trustify
       </h1>
       <div className="flex justify-center items-center mt-2">
-        <div className="bg-orange-600 h-1 w-16 rounded"></div>
+        <div className="bg-blue-600 h-1 w-16 rounded"></div>
       </div>
       <p className="text-gray-700 text-center mt-7 mb-10 text-lg">
-        Reach out for a new project or just say hello
+        Have questions about **secure digital identity verification**? Contact us today!
       </p>
 
       <div className="lg:flex gap-6">
-        {/* map */}
+        {/* Contact Information */}
         <div
           data-aos="fade-up"
-          className="lg:w-[40%] px-10 py-5 shadow-xl border-t-[3px] border-b-[3px] border-orange-600 mb-7 lg:mb-0"
+          className="lg:w-[40%] px-10 py-5 shadow-xl border-t-[3px] border-b-[3px] border-blue-600 mb-7 lg:mb-0"
         >
-          <div className="flex gap-3 mt-3 mb-12">
-            <div
-              className="rounded-full h-fit bg-orange-100 p-2"
-              style={{ color: "#EA580C", fontSize: "28px" }}
-            >
+          {/* Address */}
+          <div className="flex gap-3 mt-3 mb-10">
+            <div className="rounded-full bg-blue-100 p-3 text-blue-600 text-xl">
               <IoLocationOutline />
             </div>
             <div>
-              <h2 className="lg:text-xl text-[#7A6960] font-semibold">
-                Address
-              </h2>
-              <p className="text-sm text-slate-800">
-                A108 Adam Street, New York, NY 535022
+              <h2 className="text-lg font-semibold">Headquarters</h2>
+              <p className="text-sm text-gray-700">
+                [Your Updated Address Here]
               </p>
             </div>
           </div>
 
-          <div className="flex gap-3 mb-12">
-            <div
-              className="rounded-full h-fit bg-orange-100 p-2"
-              style={{ color: "#EA580C", fontSize: "28px" }}
-            >
+          {/* Phone */}
+          <div className="flex gap-3 mb-10">
+            <div className="rounded-full bg-blue-100 p-3 text-blue-600 text-xl">
               <IoCallOutline />
             </div>
             <div>
-              <h2 className="lg:text-xl text-[#7A6960] font-semibold">
-                Call Us
-              </h2>
-              <p className="text-sm text-slate-800">+1 5589 55488 55</p>
+              <h2 className="text-lg font-semibold">Support & Inquiries</h2>
+              <p className="text-sm text-gray-700">[Your Updated Phone Number]</p>
             </div>
           </div>
 
-          <div className="flex gap-5 mb-12">
-            <div
-              className="rounded-full h-fit bg-orange-100 p-2"
-              style={{ color: "#EA580C", fontSize: "28px" }}
-            >
+          {/* Email */}
+          <div className="flex gap-3 mb-10">
+            <div className="rounded-full bg-blue-100 p-3 text-blue-600 text-xl">
               <TfiEmail />
             </div>
             <div>
-              <h2 className="lg:text-xl text-[#7A6960] font-semibold">
-                Email Us
-              </h2>
-              <p className="text-sm text-slate-800">info@example.com</p>
+              <h2 className="text-lg font-semibold">Email Us</h2>
+              <p className="text-sm text-gray-700">[Your Updated Email]</p>
             </div>
           </div>
 
+          {/* Google Map */}
           <div className="lg:w-full lg:h-72">
             <iframe
               width="100%"
               height="100%"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14010.76256980872!2d77.22260515427726!3d28.60905606083753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2db961be393%3A0xf6c7ef5ee6dd10ae!2sIndia%20Gate%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1717776828829!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?..."
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
         </div>
 
-        {/* form */}
+        {/* Contact Form */}
         <div
           data-aos="fade-up"
           data-aos-duration="1600"
-          className="lg:w-[60%] px-10 py-5 shadow-xl border-t-[3px] border-b-[3px] border-orange-600"
+          className="lg:w-[60%] px-10 py-5 shadow-xl border-t-[3px] border-b-[3px] border-blue-600"
         >
           <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Name & Email */}
             <div className="md:flex gap-6">
               <div className="md:w-[50%]">
-                <div>
-                  <label htmlFor="name">Name</label>
-                  <input
-                    {...register("name", { required: true })}
-                    type="text"
-                    id="name"
-                    placeholder="John Doe"
-                    className="w-full h-10 px-3 my-3 rounded border border-zinc-300 focus:border focus:border-orange-600 outline-none"
-                  />
-                </div>
+                <label htmlFor="name">Full Name</label>
+                <input
+                  {...register("name", { required: true })}
+                  type="text"
+                  id="name"
+                  placeholder="Enter your full name"
+                  className="w-full h-10 px-3 my-3 rounded border border-gray-300 focus:border-blue-600 outline-none"
+                />
               </div>
 
               <div className="md:w-[50%]">
-                <div>
-                  <label htmlFor="email">Your Email</label>
-                  <input
-                    {...register("email", { required: true })}
-                    type="email"
-                    id="email"
-                    placeholder="johndoe@gmail.com"
-                    className="w-full h-10 px-3 my-3 rounded border border-zinc-300 focus:border focus:border-orange-600 outline-none"
-                  />
-                </div>
+                <label htmlFor="email">Email</label>
+                <input
+                  {...register("email", { required: true })}
+                  type="email"
+                  id="email"
+                  placeholder="Enter your email address"
+                  className="w-full h-10 px-3 my-3 rounded border border-gray-300 focus:border-blue-600 outline-none"
+                />
               </div>
             </div>
 
-            <div>
-              <label htmlFor="subject">Subject</label>
-              <input
-                {...register("subject", { required: true })}
-                type="text"
-                id="subject"
-                placeholder="Your subject"
-                className="w-full h-10 px-3 my-3 rounded border border-zinc-300 focus:border focus:border-orange-600 outline-none"
-              />
-            </div>
+            {/* Subject */}
+            <label htmlFor="subject">Subject</label>
+            <input
+              {...register("subject", { required: true })}
+              type="text"
+              id="subject"
+              placeholder="What is your inquiry about?"
+              className="w-full h-10 px-3 my-3 rounded border border-gray-300 focus:border-blue-600 outline-none"
+            />
 
-            <div>
-              <label htmlFor="message">Message</label>
-              <textarea
-                {...register("message", { required: true })}
-                id="message"
-                placeholder="Enter your message"
-                className="w-full h-60 p-3 my-3 rounded border border-zinc-300 focus:border focus:border-orange-600 outline-none resize-none"
-              ></textarea>
-            </div>
+            {/* Message */}
+            <label htmlFor="message">Message</label>
+            <textarea
+              {...register("message", { required: true })}
+              id="message"
+              placeholder="Write your message here..."
+              className="w-full h-40 p-3 my-3 rounded border border-gray-300 focus:border-blue-600 outline-none resize-none"
+            ></textarea>
 
-            <div className="flex justify-center m-3">
+            {/* Submit Button */}
+            <div className="flex justify-center mt-6">
               <CtaButton name={"Send Message"} />
             </div>
           </form>

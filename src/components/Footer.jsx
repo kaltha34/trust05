@@ -1,128 +1,115 @@
-import React, {useEffect } from "react";
-import { IoLogoTwitter } from "react-icons/io";
-import { IoLogoFacebook } from "react-icons/io5";
-import { IoLogoInstagram } from "react-icons/io5";
-import { IoLogoLinkedin } from "react-icons/io";
-// aos
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { IoLogoTwitter, IoLogoFacebook, IoLogoInstagram, IoLogoLinkedin } from "react-icons/io5";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
-
-
   useEffect(() => {
-    AOS.init({
-      duration: 1200,
-    });
+    AOS.init({ duration: 1200 });
   }, []);
 
   return (
-    <div className="md:grid grid-cols-4 p-5 md:p-0">
-      <div data-aos="fade-right" >
-        <h1 className="text-xl font-light mb-3">BrandName</h1>
-        <p className="mb-1">A108 Adam Street</p>
-        <p className="mb-5">New York, NY 535022</p>
+    <footer className="bg-gray-900 text-gray-300 py-12">
+      <div className="container mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        {/* Trustify Info */}
+        <motion.div data-aos="fade-right">
+          <h1 className="text-2xl font-semibold text-white mb-3">Trustify</h1>
+          <p className="mb-1 text-gray-400">Bambalapitiya</p>
+          <p className="mb-5 text-gray-400">Colombo, Sri Lanka</p>
+          <div>
+            <p className="font-medium">
+              📞 Phone: <span className="font-normal ml-1">+94 72 5950 375</span>
+            </p>
+            <p className="font-medium">
+              ✉️ Email: <span className="font-normal ml-1">trustify05@gmail.com</span>
+            </p>
+          </div>
+        </motion.div>
 
-        <div>
-          <p className="font-medium">
-            Phone: <span className="font-normal ml-1">+1 5589 55488 55</span>
+        {/* Useful Links */}
+        <motion.div data-aos="fade-up" data-aos-delay="300">
+          <h2 className="text-lg text-white font-medium mb-3">Useful Links</h2>
+          <ul className="space-y-2">
+            <li><Link to="/" className="hover:text-blue-400 transition duration-300">🏠 Home</Link></li>
+            <li><Link to="/about" className="hover:text-blue-400 transition duration-300">📖 About Us</Link></li>
+            <li><Link to="/services" className="hover:text-blue-400 transition duration-300">⚙️ Services</Link></li>
+            <li><Link to="/terms" className="hover:text-blue-400 transition duration-300">📜 Terms Of Service</Link></li>
+          </ul>
+        </motion.div>
+
+        {/* Our Services */}
+        <motion.div data-aos="fade-up" data-aos-delay="500">
+          <h2 className="text-lg text-white font-medium mb-3">Our Services</h2>
+          <ul className="space-y-2">
+            <li><Link to="/identity-verification" className="hover:text-blue-400 transition duration-300">🔐 Identity Verification</Link></li>
+            <li><Link to="/decentralized-kyc" className="hover:text-blue-400 transition duration-300">🔑 Decentralized KYC</Link></li>
+            <li><Link to="/access-management" className="hover:text-blue-400 transition duration-300">🛡️ Access Management</Link></li>
+            <li><Link to="/secure-data-storage" className="hover:text-blue-400 transition duration-300">💾 Secure Data Storage</Link></li>
+          </ul>
+        </motion.div>
+
+        {/* Follow Us & CTA */}
+        <motion.div data-aos="fade-up" data-aos-delay="700">
+          <h2 className="text-lg text-white font-medium mb-3">Follow Us</h2>
+          <p className="text-sm text-gray-400 mb-4">
+            Stay updated with our latest news & security updates. Follow us on social media!
           </p>
-          <p className="font-medium">
-            Email: <span className="font-normal ml-1">info@gmail.com</span>
-          </p>
-        </div>
+          <div className="flex space-x-4">
+            <motion.a
+              href="#"
+              className="p-3 rounded-full bg-gray-800 text-white hover:bg-blue-500 transition duration-300"
+              whileHover={{ scale: 1.1 }}
+            >
+              <IoLogoTwitter size={24} />
+            </motion.a>
+            <motion.a
+              href="#"
+              className="p-3 rounded-full bg-gray-800 text-white hover:bg-blue-600 transition duration-300"
+              whileHover={{ scale: 1.1 }}
+            >
+              <IoLogoFacebook size={24} />
+            </motion.a>
+            <motion.a
+              href="#"
+              className="p-3 rounded-full bg-gray-800 text-white hover:bg-pink-500 transition duration-300"
+              whileHover={{ scale: 1.1 }}
+            >
+              <IoLogoInstagram size={24} />
+            </motion.a>
+            <motion.a
+              href="#"
+              className="p-3 rounded-full bg-gray-800 text-white hover:bg-blue-700 transition duration-300"
+              whileHover={{ scale: 1.1 }}
+            >
+              <IoLogoLinkedin size={24} />
+            </motion.a>
+          </div>
+
+          {/* Subscribe CTA */}
+          <motion.div
+            className="mt-6"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Link to="/newsletter">
+              <button className="w-full bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-500 transition duration-300">
+                📩 Subscribe to Newsletter
+              </button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
 
-      {/* Useful links */}
-      <div data-aos="fade-right" data-aos-delay="300" className="mt-10 md:mt-0">
-        <h1 className="text-[#7A6960] font-medium text-lg mb-2">
-          Useful Links
-        </h1>
-        <ul>
-          <li className="mb-2 arrow">
-            <a href="#" className="text-zinc-700">
-              Home
-            </a>
-          </li>
-          <li className="mb-2 arrow">
-            <a href="#" className="text-zinc-700">
-              About Us
-            </a>
-          </li>
-          <li className="mb-2 arrow">
-            <a href="#" className="text-zinc-700">
-              Service
-            </a>
-          </li>
-          <li className="mb-2 arrow">
-            <a href="#" className="text-zinc-700">
-              Terms Of Service
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      {/* Our Services */}
-      <div data-aos="fade-right" data-aos-delay="500" className="mt-10 md:mt-0">
-        <h1 className="text-[#7A6960] font-medium text-lg mb-2">
-          Our Services
-        </h1>
-        <ul>
-          <li className="mb-2 arrow">
-            <Link to="/app-development" className="text-zinc-700">
-              App Development
-            </Link>
-          </li>
-          <li className="mb-2 arrow">
-          <Link to="/web-development" className="text-zinc-700">
-              Web Development
-            </Link>
-          </li>
-          <li className="mb-2 arrow">
-          <Link to="/seo-optimization" className="text-zinc-700">
-          SEO Optimization
-            </Link>
-          </li>
-          <li className="mb-2 arrow">
-          <Link to="/campagin-creation" className="text-zinc-700">
-          Campagin Creation
-            </Link>
-          </li>
-          <li className="mb-2 arrow">
-          <Link to="/hireus" className="text-zinc-700">
-          Hire Us
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      {/* Follow Us */}
-      <div data-aos="fade-right" data-aos-delay="700" className="mt-10 md:mt-0">
-        <h1 className="text-[#7A6960] font-medium text-lg mb-2">Follow Us</h1>
+      {/* Bottom Footer */}
+      <div className="text-center text-gray-500 mt-8 border-t border-gray-700 pt-5">
+        <p>© 2025 Trustify. All Rights Reserved.</p>
         <p className="text-sm">
-          Cras fermentum odio eu feugiat lide par naso tierra videa magna derita
-          valies
+          🔒 Your data is secure with us. <Link to="/privacy-policy" className="hover:text-blue-400">Privacy Policy</Link>
         </p>
-        <div className="flex justify-between pr-5 mt-5">
-          <div className="border border-zinc-400 p-2 rounded-full hover:border-orange-600 hover:text-orange-600">
-            <IoLogoTwitter size={"26px"} />
-          </div>
-
-          <div className="border border-zinc-400 p-2 rounded-full hover:border-orange-600 hover:text-orange-600">
-            <IoLogoFacebook size={"26px"} />
-          </div>
-
-          <div className="border border-zinc-400 p-2 rounded-full hover:border-orange-600 hover:text-orange-600">
-            <IoLogoInstagram size={"26px"} />
-          </div>
-
-          <div className="border border-zinc-400 p-2 rounded-full hover:border-orange-600 hover:text-orange-600">
-            <IoLogoLinkedin size={"26px"} />
-          </div>
-        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

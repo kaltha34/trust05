@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import CtaButton from "./CtaButton";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"; // Import framer-motion for animations
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -13,51 +14,61 @@ const NavBar = () => {
 
   return (
     <div className="w-full xl:h-24 lg:h-20 h-16 flex flex-row items-center justify-between lg:px-32 sm:px-20 px-10 shadow-lg relative secondary-font">
-      {/* logo */}
-      <a
+      {/* logo with animation */}
+      <motion.a
         href="/Marketing-Website/"
         className="lg:text-3xl text-2xl tracking-wide font-light text-[#7A6960]"
+        whileHover={{ scale: 1.1, rotate: -5 }}
+        transition={{ type: "spring", stiffness: 300 }}
       >
-        BrandName
-      </a>
+        TRUSTIFY
+      </motion.a>
+
       {/* menu */}
       <div className="lg:flex items-center justify-between lg:gap-14 hidden">
-        <a
+        <motion.a
           href="/Marketing-Website/"
           className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
         >
           Home
-        </a>
-        <a
+        </motion.a>
+        <motion.a
           href="/Marketing-Website/#about"
           className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
         >
           About
-        </a>
-        <a
+        </motion.a>
+        <motion.a
           href="/Marketing-Website/#services"
           className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
         >
           Services
-        </a>
-        <a
+        </motion.a>
+        <motion.a
           href="/Marketing-Website/#portfolio"
           className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
         >
-          Portfolio
-        </a>
+          Technologies
+        </motion.a>
 
-        <a
+        <motion.a
           href="/Marketing-Website/#contact"
           className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
         >
           Contact
-        </a>
+        </motion.a>
 
         {/* CTA */}
-        {/* <button className="bg-orange-600 text-lg text-slate-50 rounded-3xl px-4 py-1">
-          Get Strated
-        </button> */}
         <a href="/Marketing-Website/#contact" className="">
           <CtaButton name={"Get Started"} />
         </a>
@@ -69,31 +80,44 @@ const NavBar = () => {
       </div>
 
       {show && (
-        <div className="absolute z-20 top-[70px] flex flex-col gap-4 text-center w-full left-0 p-5 lg:hidden shadow-xl bg-white transition-all duration-300">
-          <a
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="absolute z-20 top-[70px] flex flex-col gap-4 text-center w-full left-0 p-5 lg:hidden shadow-xl bg-white transition-all duration-300"
+        >
+          <motion.a
             href="/Marketing-Website/"
             className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
           >
             Home
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="/Marketing-Website/#about"
             className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
           >
             About
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="/Marketing-Website/#services"
             className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
           >
             Services
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="/Marketing-Website/#contact"
             className="text-gray-800 hover:text-[#EE7540] text-lg tracking-wide font-light"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
           >
             Contact
-          </a>
+          </motion.a>
 
           {/* CTA */}
           <a
@@ -102,7 +126,7 @@ const NavBar = () => {
           >
             <CtaButton name={"Get Started"} />
           </a>
-        </div>
+        </motion.div>
       )}
     </div>
   );
