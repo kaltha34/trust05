@@ -1,0 +1,14 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Build files
+build/
+.next/  # For Next.js users
+
+# Environment variables
+.env
+
+# OS-generated files
+.DS_Store
+Thumbs.db
