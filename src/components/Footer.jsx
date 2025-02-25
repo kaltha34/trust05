@@ -58,20 +58,7 @@ const Footer = () => {
             Stay updated with our latest news & security updates. Follow us on social media!
           </p>
           <div className="flex space-x-4">
-            <motion.a
-              href="#"
-              className="p-3 rounded-full bg-gray-800 text-white hover:bg-blue-500 transition duration-300"
-              whileHover={{ scale: 1.1 }}
-            >
-              <IoLogoTwitter size={24} />
-            </motion.a>
-            <motion.a
-              href="#"
-              className="p-3 rounded-full bg-gray-800 text-white hover:bg-blue-600 transition duration-300"
-              whileHover={{ scale: 1.1 }}
-            >
-              <IoLogoFacebook size={24} />
-            </motion.a>
+            
             <motion.a
               href="https://www.instagram.com/trustify_it?igsh=MWh5MHhzbnZob3ZxZg%3D%3D&utm_source=qr"
               className="p-3 rounded-full bg-gray-800 text-white hover:bg-pink-500 transition duration-300"
