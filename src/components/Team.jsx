@@ -13,12 +13,12 @@ import team5 from "../img/team/team-5.jpeg";
 import team6 from "../img/team/team-6.jpeg";
 
 const teamMembers = [
-  { image: team1, name: "Hansaja Bandara", role: "Backend Developer" },
-  { image: team2, name: "Sandaru Hansaja", role: "Backend Developer" },
-  { image: team3, name: "Chamindu", role: "Frontend Developer" },
+  { image: team1, name: "Hansaja Bandara", role: "Frontend Developer" },
+  { image: team2, name: "Sandaru Hansaja", role: "Fullstack Developer" },
+  { image: team3, name: "Chamindu", role: "Fullstack Developer" },
   { image: team4, name: "Kalhara Thabrew", role: "Blockchain Developer" },
-  { image: team5, name: "Senuli Wanniarachchi", role: "Frontend Developer" },
-  { image: team6, name: "Bagya Dewmi", role: "Frontend Developer" },
+  { image: team5, name: "Senuli Wanniarachchi", role: "Fullstack Developer" },
+  { image: team6, name: "Bhagya Dewmi", role: "Frontend Developer" },
 ];
 
 const Team = () => {
